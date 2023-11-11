@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaigns', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::table('campaigns', function (Blueprint $table) {
+            $table->string('status')->default('created');
+            $table->timestamp('from')->nullable();
+            $table->timestamp('to')->nullable();
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaigns');
+        Schema::table('campaigns', function (Blueprint $table) {
+            //
+        });
     }
 };

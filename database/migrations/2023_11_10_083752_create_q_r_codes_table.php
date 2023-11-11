@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaigns', function (Blueprint $table) {
+        Schema::create('qr_codes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('campaign_id');
             $table->uuid('user_id');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('destination');
+            $table->integer('percentage');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaigns');
+        Schema::dropIfExists('q_r_codes');
     }
 };

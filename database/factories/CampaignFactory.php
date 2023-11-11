@@ -1,0 +1,46 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Campaign>
+ */
+class CampaignFactory extends Factory
+{
+
+    public function definition(): array
+    {
+        $status = array('created','active','paused','disabled');
+        $currentTimestamp = time();
+        $range1InSeconds = 10 * 24 * 60 * 60;
+        $randomSeconds1 = rand(0, $range1InSeconds);
+        $randomTimestamp1 = $currentTimestamp + $randomSeconds1;
+        $range2InSeconds = 30 * 24 * 60 * 60;
+        $randomSeconds2 = rand(0, $range2InSeconds);
+        $randomTimestamp2 = $randomTimestamp1 + $randomSeconds2;
+        $randomDate1 = date("Y-m-d H:i:s", $randomTimestamp1);
+        $randomDate2 = date("Y-m-d H:i:s", $randomTimestamp2);
+
+        
+
+        return [
+            'user_id' => '9a956716-a130-47b9-8da8-43d85aca01f0',
+            'name' => fake()->name(),
+            'description' => fake()->words(500, true),
+            'status' => $status[array_rand($status, 1)],
+            'from' => $randomDate1,
+            'to' => $randomDate2
+        ];
+    }
+}
+
+
+// $table->uuid('user_id');
+// $table->string('name');
+// $table->text('description')->nullable();
+// $table->string('status')->default('created');
+// $table->timestamp('from')->nullable();
+// $table->timestamp('to')->nullable();

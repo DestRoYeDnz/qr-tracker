@@ -16,5 +16,5 @@
     </head>
     <body class="font-sans antialiased">
         @splade
-    </body>
+        </body>
 </html>

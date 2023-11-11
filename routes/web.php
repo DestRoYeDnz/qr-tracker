@@ -45,7 +45,13 @@ Route::middleware('splade')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        Route::get('mycampaigns', [CampaignController::class, 'index'])->name('mycampaigns');
+        Route::get('my-campaigns', [CampaignController::class, 'index'])->name('mycampaigns');
+
+        Route::get('my-campaign/add', [CampaignController::class, 'create'])->name('mycampaigns.create');
+        Route::post('my-campaigns', [CampaignController::class, 'store'])->name('mycampaigns.store');
+        Route::get('my-campaign/{campaign}', [CampaignController::class, 'show'])->name('mycampaigns.show');
+
+        Route::get('/qr-code/create', [QrCodeController::class, 'create'])->name('qrcode.create');
         Route::get('/qr-code/{id}', [QrCodeController::class, 'show']);
     });
 

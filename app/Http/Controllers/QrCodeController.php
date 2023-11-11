@@ -14,10 +14,21 @@ class QrCodeController extends Controller
         ->color(255, 0, 0)
         ->margin(1)
         ->generate(
-            $id
+            $this->filterString($id)
         );
 
-        return response($data)
-        ->header('Content-type', 'image/svg')->header('Content-disposition', 'attachment; filename="image.svg"');
+        return response($data, 200)
+        ->header('Content-Type','image/svg+xml');
+    }
+
+    function create()
+    {
+        return view('qrcode.create');
+    }
+
+    function filterString($inputString) {
+        $pattern = '/[^1234567890\-abcdefghijklmnopqrstuvwxyz]/';
+        $filteredString = preg_replace($pattern, '', $inputString);    
+        return $filteredString;
     }
 }
