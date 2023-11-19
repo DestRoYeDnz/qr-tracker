@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
-use App\Models\QRCode;
+use App\Models\QRCode as QRCodeModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
 use App\Tables\Campaign as CampaignTable;
 
+
 class CampaignController extends Controller
 {
     function index()
     {
-        return view('campaign.index',[
+        return view('campaign.index', [
             'users' => CampaignTable::class
-    
+
         ]);
     }
     function create()
@@ -25,12 +26,14 @@ class CampaignController extends Controller
 
     function show(Campaign $campaign)
     {
-        $qrcodes = QRCode::where('user_id', auth()->id())->get();
+
+
+        $qrcodes = QRCodeModel::where('user_id', auth()->id())->get();
         return view('campaign.show', [
             'qrcodes' => $qrcodes,
             'campaign' => $campaign,
 
-    
+
         ]);
     }
     function store(Request $request)
@@ -54,4 +57,14 @@ class CampaignController extends Controller
         return redirect('/my-campaign/' . $campaign->id);
     }
 
+    function destroy($id)
+    {
+        $campaign = Campaign::find($id);
+
+        if($campaign->id === auth()->id()){
+            Campaign::destroy($id);
+            return redirect('/my-campaigns');
+        }
+        return redirect('/my-campaigns');
+    }
 }

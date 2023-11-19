@@ -1,1 +1,1 @@
-<img class='w-16 h-16' src="/storage/images/logo.jpg" alt="-">
+<img class='w-20 mt-4' src="/storage/images/icon.png" alt="-">

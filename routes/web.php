@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\TrackQRController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,12 +49,19 @@ Route::middleware('splade')->group(function () {
         Route::get('my-campaigns', [CampaignController::class, 'index'])->name('mycampaigns');
 
         Route::get('my-campaign/add', [CampaignController::class, 'create'])->name('mycampaigns.create');
+        Route::get('my-campaign/delete/{campaign}', [CampaignController::class, 'destroy'])->name('mycampaigns.create');
         Route::post('my-campaigns', [CampaignController::class, 'store'])->name('mycampaigns.store');
         Route::get('my-campaign/{campaign}', [CampaignController::class, 'show'])->name('mycampaigns.show');
 
-        Route::get('/qr-code/create', [QrCodeController::class, 'create'])->name('qrcode.create');
+        Route::post('/qr-code', [QrCodeController::class, 'store'])->name('qrcode.store');
+        Route::get('/qr-code/create/{id}', [QrCodeController::class, 'create'])->name('qrcode.create');
         Route::get('/qr-code/{id}', [QrCodeController::class, 'show']);
+
+        
+
     });
+
+    Route::get('/track/qr/{campaign}/{qrcode}', [TrackQRController::class, 'qr']);
 
     require __DIR__.'/auth.php';
 });

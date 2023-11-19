@@ -1,12 +1,17 @@
 import "./bootstrap";
 import "../css/app.css";
 import "@protonemedia/laravel-splade/dist/style.css";
+import * as Sentry from "@sentry/vue";
 
 import { createApp } from "vue/dist/vue.esm-bundler.js";
 import { renderSpladeApp, SpladePlugin } from "@protonemedia/laravel-splade";
 
 const el = document.getElementById("app");
 
+Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+  });
+  
 createApp({
     render: renderSpladeApp({ el })
 })

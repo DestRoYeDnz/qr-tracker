@@ -39,30 +39,34 @@ class Campaign extends AbstractTable
     {
         return QueryBuilder::for(CampaignModel::class)
             ->where('user_id', auth()->id())
-            ->defaultSort('name')
-            ->allowedSorts('name', 'email', 'status')
+            ->defaultSort('name','status')
+            ->allowedSorts('name', 'email', 'status','from','to')
             ->paginate()
             ->withQueryString();
     }
 
-    /**
-     * Configure the given SpladeTable.
-     *
-     * @param \ProtoneMedia\Splade\SpladeTable $table
-     * @return void
-     */
+
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(columns: ['name', 'status'])
+            ->withGlobalSearch(columns: ['name', 'email', 'status','from','to'])
             ->defaultSort('name')
             ->column('name', sortable: true)
+            ->column('from', sortable: true)
+            ->column('to', sortable: true)
             ->column('status', sortable: true)
             ->column('actions', sortable: false)
             ->export(
                 label: 'CSV export',
                 filename: 'projects.csv',
                 type: Excel::CSV
+            )
+            ->selectFilter(
+                key: 'status',
+                options: ['CREATED','ACTIVE','PAUSED','DISABLED'],
+                label: 'Status',
+                noFilterOption: true,
+                noFilterOptionLabel: 'All'
             );
     }
 }

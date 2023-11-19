@@ -34,13 +34,22 @@
                 <div class="p-4">
                     <x-splade-table :for="$users">
                         <x-splade-cell status>
-                            <div class="bg-blue-500 rounded-md px-2 py-1 text-white font-semibold uppercase text-sm">
-                                {{ $item->status }}</div>
+                            @if ($item->status == 'created')
+                                <div class="bg-blue-600 text-white uppercase rounded-md shadow-md px-2 py-1">{{$item->status}}</div>
+                            @elseif($item->status == 'active')
+                                <div class="bg-green-600 text-white uppercase rounded-md shadow-md px-2 py-1">{{$item->status}}</div>
+                            @elseif($item->status == 'paused')
+                                <div class="bg-orange-600 text-white uppercase rounded-md shadow-md px-2 py-1">{{$item->status}}</div>
+                            @elseif($item->status == 'disabled')
+                                <div class="bg-red-600  text-white uppercase rounded-md shadow-md px-2 py-1">{{$item->status}}</div>
+                            @else
+                                <div class="bg-gray-600  text-gray-600 uppercase rounded-md shadow-md px-2 py-1">{{$item->status}}</div>
+                            @endif
                         </x-splade-cell>
                         <x-splade-cell name>
                             <div class="font-semibold text-sm">
-                                <Link href={{ url('/my-campaign/'.$item->id) }}>{{ $item->name }}</Link>
-                                </div>
+                                <Link href={{ url('/my-campaign/' . $item->id) }}>{{ $item->name }}</Link>
+                            </div>
                         </x-splade-cell>
                         <x-splade-cell class="" actions>
                             <div
@@ -52,14 +61,16 @@
                                 </svg>
                             </div>
 
-                            <div
-                                class="bg-red-500 rounded-md px-1 py-0.5 cursor-pointer text-white font-semibold uppercase text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m19 7-.867 12.142A2 2 0 0 1 16.138 21H7.862a2 2 0 0 1-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v3M4 7h16" />
-                                </svg>
-                            </div>
+                            <Link confirm href={{'my-campaign/delete/' . $item->id}}
+                                confirm-text="Are you sure you want to delete [CAMPAIGN NAME] Campaign"
+                                confirm-button="Yes, I'm sure" cancel-button="No, Please Ignore" href="/"
+                                class="w-6 h-6 flex items-center justify-center  bg-red-500 rounded-md px-1 py-0.5 cursor-pointer text-white font-semibold uppercase text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                stroke-width="2" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m19 7-.867 12.142A2 2 0 0 1 16.138 21H7.862a2 2 0 0 1-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v3M4 7h16" />
+                            </svg>
+                            </Link>
                         </x-splade-cell>
                     </x-splade-table>
                 </div>

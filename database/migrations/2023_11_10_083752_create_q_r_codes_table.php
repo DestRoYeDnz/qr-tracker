@@ -15,9 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('campaign_id');
             $table->uuid('user_id');
+            $table->string('type');
             $table->string('name');
-            $table->string('destination');
-            $table->integer('percentage');
+            $table->text('description')->nullable();
+            $table->string('destination_url');
+            $table->string('grandfather_url')->nullable();
             $table->timestamps();
         });
     }

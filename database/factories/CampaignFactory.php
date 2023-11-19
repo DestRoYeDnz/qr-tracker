@@ -27,9 +27,9 @@ class CampaignFactory extends Factory
         
 
         return [
-            'user_id' => '9a956716-a130-47b9-8da8-43d85aca01f0',
+            'user_id' => '9a95c9f0-c9a2-47d4-80b4-fb79d0ddb877',
             'name' => fake()->name(),
-            'description' => fake()->words(500, true),
+            'description' => fake()->words(200, true),
             'status' => $status[array_rand($status, 1)],
             'from' => $randomDate1,
             'to' => $randomDate2
